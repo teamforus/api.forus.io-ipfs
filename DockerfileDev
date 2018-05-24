@@ -1,0 +1,13 @@
+FROM alpine:3.7
+
+RUN apk add --update \
+    git \
+    python \
+    make \
+    g++ \
+    bash \
+    nodejs
+
+WORKDIR /app
+
+EXPOSE 80
