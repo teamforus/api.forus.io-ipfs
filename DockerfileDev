@@ -10,4 +10,6 @@ RUN apk add --update \
 
 WORKDIR /app
 
+ENV ORBITDB_PREFIX="forus.kindpakket." ORBITDB_DIR="/data/orbitdb" IPFS_REPO_DIR="/data/ipfs"
+
 EXPOSE 80

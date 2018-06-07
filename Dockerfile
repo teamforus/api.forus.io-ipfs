@@ -12,6 +12,8 @@ COPY . /app
 
 WORKDIR /app
 
+ENV ORBITDB_PREFIX="forus.kindpakket." ORBITDB_DIR="/data/orbitdb" IPFS_REPO_DIR="/data/ipfs"
+
 RUN npm install
 
 

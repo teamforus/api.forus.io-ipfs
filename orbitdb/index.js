@@ -5,11 +5,11 @@ const OrbitDB = require('orbit-db');
 
 module.exports = {
 
-    dbPrefix: 'forus.kindpakket.',
-    orbitDbDir: '/data/orbitdb',
+    dbPrefix: process.env.ORBITDB_PREFIX || 'forus.kindpakket.',
+    orbitDbDir: process.env.ORBITDB_DIR || '/data/orbitdb',
 
     ipfsOptions: {
-        repo: '/data/ipfs',
+        repo: process.env.IPFS_REPO_DIR || '/data/ipfs',
         init: true,
         EXPERIMENTAL: {
             pubsub: true
