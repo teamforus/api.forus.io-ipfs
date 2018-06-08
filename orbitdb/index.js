@@ -2,6 +2,7 @@
 
 const IPFS = require('ipfs');
 const OrbitDB = require('orbit-db');
+const OrbitDBCache = require('../orbitdb-cache');
 
 module.exports = {
 
@@ -40,7 +41,8 @@ module.exports = {
         }
 
         const IPFS = await this.getIPFS();
-        this.orbitDB = new OrbitDB(IPFS, this.orbitDbDir);
+        const orbitDB = new OrbitDB(IPFS, this.orbitDbDir);
+        this.orbitDB = new OrbitDBCache(orbitDB);
         return this.orbitDB;
     },
 
