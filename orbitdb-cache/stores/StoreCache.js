@@ -18,15 +18,15 @@ class StoreCache {
     }
 
     async close() {
-        return this._store.close();
+        return await this._store.close();
     }
 
     async drop() {
-        this._store.drop();
+        await this._store.drop();
     }
 
-    async load() {
-        this._store.load();
+    async load (amount) {
+        await this._store.load(amount);
     }
 
     sync(heads) {
@@ -38,11 +38,11 @@ class StoreCache {
     }
 
     async saveSnapshot() {
-        return this._store.saveSnapshot();
+        return await this._store.saveSnapshot();
     }
 
     async loadFromSnapshot (onProgressCallback) {
-        return this._store.loadFromSnapshot(onProgressCallback);
+        return await this._store.loadFromSnapshot(onProgressCallback);
     }
 }
 
