@@ -11,29 +11,35 @@ router.use(bodyParser.json());
 const orbitDB = require('../orbitdb');
 router.use(orbitDB.getMiddleware(orbitDB));
 
-router.route('/helloworld-message')
+router.route('/messages')
     .get(async (req, res) => {
-        res.json({
-            "message": req.orbitDB.get("helloworld-message").map(e => e.message)[0] || "Hello world!"
-        });
+        res.json(req.orbitDB.get("helloworld-messages").map(e => e.messages)[0] || []);
     })
-    .put(async (req, res) => {
-        const messageContainer = req.body;
-        if (!messageContainer.message) {
-            res.status(400).send();
+    .post(async (req, res) => {
+        if (!req.body.name) {
+            res.status(400).json({"result": "false", "error": "No valid name given"});
         }
 
-        const record = {
-            "id": "helloworld-message",
-            "message": messageContainer.message
-        };
+        if (!req.body.message) {
+            res.status(400).json({"result": "false", "error": "No valid message given"});
+        }
+
+        var messageList = req.orbitDB.get("helloworld-messages").map(e => e.messages)[0] || [];
         
-        req.orbitDB.put(record)
+        messageList.push({
+            "name": req.body.name,
+            "message": req.body.message
+        });
+        
+        req.orbitDB.put({
+            "id": "helloworld-messages",
+            "messages": messageList
+        })
         .then(hash => {
-            res.status(200).send();
+            res.status(200).send({"result": "true"});
         })
         .catch((error => {
-            res.status(500).json({"error": error});
+            res.status(500).json({"result": "false", "error": error});
         }));
         
     });
