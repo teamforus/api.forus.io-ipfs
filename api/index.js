@@ -11,6 +11,23 @@ router.use(bodyParser.json());
 const orbitDB = require('../orbitdb');
 router.use(orbitDB.getMiddleware(orbitDB));
 
+var message = "Hello world!";
+
+router.route('/helloworld-message')
+    .get(async (req, res) => {
+        var result = new Object();
+        result.message = message;
+        res.json(result);
+    })
+    .put(async (req, res) => {
+        const messageContainer = req.body;
+        if (!messageContainer.message) {
+            res.status(400).send();
+        }
+        message = messageContainer.message;
+        res.status(200).send();
+    });
+
 router.route('/:resource/:id')
     .get(async (req, res) => {
         var result = req.orbitDB.get(req.params.id).map(e => e);
