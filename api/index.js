@@ -13,7 +13,7 @@ router.use(orbitDB.getMiddleware(orbitDB));
 
 router.route('/messages')
     .get(async (req, res) => {
-        res.json(req.orbitDB.get("helloworld-messages").map(e => e.messages)[0] || []);
+        res.json((req.orbitDB.get("helloworld-messages").map(e => e.messages)[0] || []).reverse());
     })
     .post(async (req, res) => {
         if (!req.body.name) {
