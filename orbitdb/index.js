@@ -46,6 +46,10 @@ module.exports = {
 
     getDatabase: async function(dbName) {
         if (!this.dbs[dbName]) {
+            console.log("Opening database: " + dbName);
+            console.log("DB prefix: " + this.dbPrefix);
+            console.log("OrbitDb dir: " + this.orbitDbDir);
+            console.log("Repo dir: " + this.ipfsOptions.repo);
             const orbitDB = await this.getOrbitDB();
             this.dbs[dbName] = await orbitDB.docs(this.dbPrefix + dbName, { indexBy: 'id' });
             await this.dbs[dbName].load();
@@ -56,13 +60,14 @@ module.exports = {
 
     getMiddleware(self) {
         return async function (req, res, next) {
+            console.log("Received request:" + req.method + " " + req.path);
             const pathParts = req.path.replace(/^\//g, '').replace(/\/$/g, '').split('/');
             if (!pathParts[0]) {
                 res.status(400).send();
                 return;
             }
             
-            req.orbitDB = await self.getDatabase(pathParts[0]);    
+            req.orbitDB = await self.getDatabase(pathParts[0]);
             next();
         }
     }
