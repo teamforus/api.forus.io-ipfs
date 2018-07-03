@@ -11,7 +11,7 @@ router.use(bodyParser.json());
 const orbitDB = require('../orbitdb');
 router.use(orbitDB.getMiddleware(orbitDB));
 
-router.route('/:resource/:id')
+router.route('/docs/:resource/:id')
     .get(async (req, res) => {
         var result = req.orbitDB.get(req.params.id).map(e => e);
         if (1 == result.length) {
@@ -38,7 +38,7 @@ router.route('/:resource/:id')
     });
 
 
-router.route('/:resource')
+router.route('/docs/:resource')
     .get(async (req, res) => {
         var result = [];
         
