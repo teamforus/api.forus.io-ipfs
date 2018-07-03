@@ -8,6 +8,14 @@ module.exports = router;
 
 const bodyParser = require('body-parser');
 router.use(bodyParser.json());
+router.use (function (error, req, res, next){
+    if("entity.parse.failed" == error.type) {
+        res.status(400).json({
+            result: false,
+            error: "Invallid request body"
+        });
+    }
+});
 
 const orbitDB = require('../orbitdb');
 router.use(orbitDB.getMiddleware(orbitDB));
