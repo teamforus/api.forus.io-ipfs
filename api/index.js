@@ -110,7 +110,7 @@ router.route('/docs/:resource')
         const item = req.body;
         if (!item.id) {
             const idHash = crypto.createHash('sha256');
-            idHash.update(JSON.stringify(item));
+            idHash.update(crypto.randomBytes(256).toString('base64'));
             item.id = idHash.digest('hex');
         }
 
