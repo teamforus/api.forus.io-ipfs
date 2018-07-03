@@ -21,7 +21,7 @@ const orbitDB = require('../orbitdb');
 router.use(orbitDB.getMiddleware(orbitDB));
 
 router.route('/docs/:resource/:id')
-    .get(async (req, res) => {
+    .get((req, res) => {
         var result = req.orbitDB.get(req.params.id).map(e => e);
         if (1 == result.length) {
             res.json(result[0]);
@@ -29,7 +29,7 @@ router.route('/docs/:resource/:id')
             res.status(404).json({});
         }
     })
-    .put(async (req, res) => {
+    .put((req, res) => {
         const item = req.body;
         item.id = req.params.id;
         if (!item.id) {
@@ -48,7 +48,7 @@ router.route('/docs/:resource/:id')
 
 
 router.route('/docs/:resource')
-    .get(async (req, res) => {
+    .get((req, res) => {
         var result = [];
         
         var query = {};
@@ -106,7 +106,7 @@ router.route('/docs/:resource')
         
         res.json(result);
     })
-    .post(async (req, res) => {
+    .post((req, res) => {
         const item = req.body;
         if (!item.id) {
             const idHash = crypto.createHash('sha256');

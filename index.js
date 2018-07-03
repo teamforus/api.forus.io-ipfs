@@ -8,6 +8,16 @@ const port = 80;
 
 app.use('/api/v1', api);
 
+app.use(function (error, req, res, next) {
+    if (error) {
+        res.status(500).json({
+            result: false
+        });
+    } else {
+        next();
+    }
+});
+
 const server = app.listen(port, () => console.log('Listening on port ' + port));
 
 process.on('SIGTERM', () =>  {
