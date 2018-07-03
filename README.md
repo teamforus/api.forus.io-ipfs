@@ -11,7 +11,7 @@ The id in the URL corresponds to the id field in the document. When there is a c
 + Response 200 (application/json)
     + Body
         {
-            "id": {id}
+            "id": 1
             "name": "message",
             "value": "Hello world!"
         }
@@ -21,6 +21,7 @@ The id in the URL corresponds to the id field in the document. When there is a c
 + Request (application/json)
     + Body
         {
+            "id": 1 (optional)
             "name": "message",
             "value": "Message to add"
         }
@@ -61,7 +62,7 @@ The id in the URL corresponds to the id field in the document. When there is a c
 + Response 500
     + Body
         {
-            "result":"false","error":"Server error message"
+            "result":"false"
         }
 
 
@@ -99,7 +100,7 @@ If no id field is given in the body of the document, a random value will be gene
     + Body
         {
             "result":"true",
-            "generated_id": "3"
+            "id": "3"
         }
 
 + Response 400
@@ -111,6 +112,6 @@ If no id field is given in the body of the document, a random value will be gene
 + Response 500
     + Body
         {
-            "result":"false","error":"Server error message"
+            "result":"false"
         }
 
