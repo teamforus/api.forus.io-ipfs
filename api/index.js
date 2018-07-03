@@ -1,5 +1,6 @@
 "use strict";
 
+const crypto = require('crypto');
 var express = require('express');
 var router = express.Router();
 module.exports = router;
@@ -100,11 +101,14 @@ router.route('/docs/:resource')
     .post(async (req, res) => {
         const item = req.body;
         if (!item.id) {
-            res.status(400).send();
+            const idHash = crypto.createHash('sha256');
+            idHash.update(JSON.stringify(item));
+            item.id = idHash.digest('hex');
         }
 
         req.orbitDB.put(item).then(hash => {
-            res.json({'hash': hash });
+            res.json({'result': 'true', 'id': item.id });
         })
+
     });
 
