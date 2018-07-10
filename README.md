@@ -1,3 +1,7 @@
+**note:** work in progress, beware of the dragons 🐉 
+
+**This repository is maintained by:** [@jastam](https://github.com/jastam)
+
 # api.forus.io-ipfs
 
 ## Document store
